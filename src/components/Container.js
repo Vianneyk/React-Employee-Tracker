@@ -47,8 +47,8 @@ function Container(){
             }
             return 0
         })
-        console.log('Sorted List: ', sorted)
-        setUsers([...sorted])
+        // console.log('Sorted List: ', sorted)
+        // setUsers([...sorted])
     }
 
     return(
