@@ -47,6 +47,7 @@ function Container(){
             }
             return 0
         })
+        setUsers([...sorted])
     }
 
     return(
