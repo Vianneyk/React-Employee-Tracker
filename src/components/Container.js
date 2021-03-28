@@ -3,7 +3,8 @@ import axios from 'axios'
 import Table from './Table'
 
 function Container(){
-    const [users, setUsers] = useState([])
+    const [allUsers, setUsers] = useState([])
+    const [displayedUsers, setDisplayedUsers] = useState([])
     const [search, setSearch] = useState("")
 
     useEffect(() => {
@@ -12,19 +13,20 @@ function Container(){
 
     async function getRandomUsers(){
         const result = await axios.get('https://randomuser.me/api/?results=50&seed=seed')
-        setUsers(result.data.results)
+        setUsers(result.data.results);
+        setDisplayedUsers(result.data.results)
     }
 
     function getSearchResults(){
         console.log('Searching for:', search)
-        const searchedUser = users.filter(user => search.indexOf(user.name.first)> -1 || search.indexOf(user.name.last)> -1)
-        console.log(searchedUser)
-        setUsers(searchedUser)
+        const matchedUsers = allUsers.filter(user => search.indexOf(user.name.first)> -1 || search.indexOf(user.name.last)> -1)
+
+        setDisplayedUsers(matchedUsers)
     }
 
     function clearSearch(){
         setSearch("")
-        getRandomUsers()
+        setDisplayedUsers(allUsers)
     }
 
     function handleInputChange(event){
@@ -38,7 +40,7 @@ function Container(){
     }
 
     function sortName(){
-        const sorted = users.sort( function(item1, item2){
+        const sorted = displayedUsers.sort( function(item1, item2){
             if(item1.name.last < item2.name.last){
                 return -1
             }
@@ -47,7 +49,7 @@ function Container(){
             }
             return 0
         })
-        setUsers([...sorted])
+        setDisplayedUsers([...sorted])
     }
 
     return(
@@ -60,7 +62,7 @@ function Container(){
             <div style={{display: "flex", justifyContent: "center",  margin: "auto", color: "gray"}}>
                 <p><small>Hover over the Name to Sort Employees Alphabetically</small></p>
             </div>
-            <Table list={users} sortName={sortName}/>
+            <Table list={displayedUsers} sortName={sortName}/>
         </div>
     )
 }
