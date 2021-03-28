@@ -12,15 +12,14 @@ function Container(){
     }, [])
 
     async function getRandomUsers(){
-        const result = await axios.get('https://randomuser.me/api/?results=50&seed=seed')
+        const result = await axios.get('https://randomuser.me/api/?results=100&seed=seed')
         setUsers(result.data.results);
         setDisplayedUsers(result.data.results)
     }
 
     function getSearchResults(){
         console.log('Searching for:', search)
-        const matchedUsers = allUsers.filter(user => search.indexOf(user.name.first)> -1 || search.indexOf(user.name.last)> -1)
-
+        const matchedUsers = allUsers.filter(user => (search.indexOf(user.name.first)> -1 || search.indexOf(user.name.last)> -1 || search.indexOf(user.location.country)> -1))
         setDisplayedUsers(matchedUsers)
     }
 
@@ -53,14 +52,14 @@ function Container(){
     }
 
     return(
-        <div className="container" style={{marginTop: "20px", marginBottom: "20px"}}>
+        <div className="container" style={{marginTop: "25px", marginBottom: "20px"}}>
             <div className="input-group mb-3 float-center">
-                <input value={search} onChange={handleInputChange} type="text" className="form-control" placeholder="Search Employee by Name" aria-label="Recipient's username" aria-describedby="button-addon2"/>
+                <input value={search} onChange={handleInputChange} type="text" className="form-control" placeholder="Search employee by first name, last name or country" aria-label="Recipient's username" aria-describedby="button-addon2"/>
                 <button className="btn btn-outline-danger" onClick={clearSearch}><i class="fas fa-window-close"></i></button>
-                <button onClick={handleFormSubmit} className="btn btn-outline-primary" type="submit" id="button-addon2">Search</button>
+                <button onClick={handleFormSubmit} className="btn btn-outline-primary" type="submit" id="button-addon2"><i class="fas fa-search"></i></button>
             </div>
             <div style={{display: "flex", justifyContent: "center",  margin: "auto", color: "gray"}}>
-                <p><small>Hover over the Name to Sort Employees Alphabetically</small></p>
+                <p><small>Click next to "Name" to sort employees alphabetically</small></p>
             </div>
             <Table list={displayedUsers} sortName={sortName}/>
         </div>
