@@ -8,8 +8,8 @@ function Table(props) {
                 <tr>
                 <th>Image</th>
                 <th>Name<button className='filter' onClick={props.sortName}><i className="fas fa-filter"></i></button></th>
-                <th>Phone Number</th>
                 <th>Email</th>
+                <th>Phone Number</th>
                 <th>Location</th>
                 </tr>
             </thead>
@@ -20,9 +20,9 @@ function Table(props) {
                     <img src={user.picture.thumbnail} alt="profile"/>
                 </td>
                 <td>{user.name.first} {user.name.last}</td>
-                <td>{user.phone}</td>
                 <td>{user.email}</td>
-                <td>{user.location.state}, {user.location.country}</td>
+                <td>{user.phone}</td>
+                <td>{user.dob.date}</td>
                 </tr>
                 )}
             </tbody>

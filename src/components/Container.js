@@ -11,7 +11,7 @@ function Container(){
     }, [])
 
     async function getRandomUsers(){
-        const result = await axios.get('https://randomuser.me/api/?results=20&seed=seed')
+        const result = await axios.get('https://randomuser.me/api/?results=50&seed=seed')
         setUsers(result.data.results)
     }
 
